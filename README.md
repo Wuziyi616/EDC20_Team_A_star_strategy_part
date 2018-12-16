@@ -16,7 +16,7 @@ The detailed contents about the files is as follows:
 ## Implementation of Path Searching
 Path search may be the most important issue in this competition, since the map is very complex and the rules are very strict.  
 ![Failed to load the image](https://github.com/Wuziyi616/EDC20_Team_A_star_strategy_part/blob/master/map.jpg)
-  
+
 After discussing with the teammate who takes in charge of movement, I decide to divide the map into several levels of units, and the path I give will be a sequence of points (coordinates).  
   
 Concretely, I assign 40 Positions, 26 Edges, 12 Sections and 4 InterSections.  
@@ -40,7 +40,7 @@ Other part including avoid enemy car or so can also be seen in the code.
 
 ## EDCHost20 for Debug
 This is the modified EDCHost20 for debugging the path planning and decision making. Instead of using the image from outside camera, I just use a map.jpg file as the central image.  
-![Failed to load the image](https://github.com/Wuziyi616/EDC20_Team_A_star_strategy_part/blob/master/EDCHost20_wzy.png)
+![Failed to load the image](https://github.com/Wuziyi616/EDC20_Team_A_star_strategy_part/blob/master/EDCHost20_wzy.png)  
   
 The usage of it is exactly the same as the authentic EDCHost20. After connecting with a wifi which can be not only EDC20 but anything like a telephone hotspot, you also need to calibrate the map. Note that the order should be up-right, up-left, down-right, down-left, which is different from the original EDCHost20.  
   
