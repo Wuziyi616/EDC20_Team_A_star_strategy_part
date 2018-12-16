@@ -36,10 +36,11 @@ Every time a message is received from the host computer, we'll decode it and jud
 Other part including avoid enemy car or so can also be seen in the code.  
 
 ## EDCHost20 for Debug
-This is the modified EDCHost20 for debugging the path planning and decision making. Instead of using the image from outside camera, I just use a map.jpg file as the central image.  
-  
+This is the modified EDCHost20 for debugging the path planning and decision making. Instead of using the image from outside camera, I just use a map.jpg file as the central image.
+![Failed to load the image](https://github.com/Wuziyi616/EDC20_Team_A_star_strategy_part/blob/master/EDCHost20_wzy.png)
 The usage of it is exactly the same as the authentic EDCHost20. After connecting with a wifi which can be not only EDC20 but anything like a telephone hotspot, you also need to calibrate the map. Note that the order should be up-right, up-left, down-right, down-left, which is different from the original EDCHost20.  
-Now you can start your simulation. There are lots of funtions which you can easily understand from the instructions in the UI. A very vital action is that you can click the right mouse on the map to move your car there! You can even change your car ID or change the passenger's start/end positions. It really helps our debug process a lot.
+  
+Now you can start your simulation. There are lots of funtions which you can easily understand from the instructions in the UI. A very vital action is that you can click the right mouse on the map to move your car there! You can even change your car ID or change the passenger's start/end positions. It really helps our debug process a lot.  
 
 ## Author
 Ziyi Wu  
