@@ -1,0 +1,133 @@
+int main(void)
+{
+  /* USER CODE BEGIN 1 */
+
+  /* USER CODE END 1 */
+
+  /* MCU Configuration----------------------------------------------------------*/
+
+  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
+  HAL_Init();
+
+  /* USER CODE BEGIN Init */
+
+  /* USER CODE END Init */
+
+  /* Configure the system clock */
+  SystemClock_Config();
+
+  /* USER CODE BEGIN SysInit */
+
+  /* USER CODE END SysInit */
+
+  /* Initialize all configured peripherals */
+  MX_GPIO_Init();
+  MX_USART1_UART_Init();
+  MX_USART2_UART_Init();
+  /* USER CODE BEGIN 2 */
+	init();  // wzy?init
+	
+	HAL_GPIO_WritePin(WIFI1_GPIO_Port, WIFI1_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(WIFI2_GPIO_Port, WIFI2_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(WIFI3_GPIO_Port, WIFI3_Pin, GPIO_PIN_SET);
+	
+	WifiInit(&huart2);	
+	
+	HAL_UART_Receive_IT(&huart2, huanchong, 1);
+	
+	/***************/
+	
+	//SerialPrintNewChar("a1\r\n",&huart1);
+	
+	GetValidData = 0;
+	while(GetValidData == 0){}
+		
+	DecodeCarBInfo();
+	DecodePassenger1();
+	struct Position myp = getCarB_pos();
+		
+	struct Position temp,temp2;
+	temp.X=120; temp.Y=10;
+	temp2.X=132; temp2.Y=118;
+		
+	struct Position aimp = temp2;//getPassengerXstart_pos(1);
+	
+	struct Path path;
+		
+	//SerialPrintNewChar("a2_1\r\n",&huart1);
+	while(!get_nearest_path(&path, &myp, &aimp)){}
+	//SerialPrintNewChar("a2_2\r\n",&huart1);
+  /* USER CODE END 2 */
+
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+	
+	
+  while (1)
+  {
+  /* USER CODE END WHILE */
+
+  /* USER CODE BEGIN 3 */
+		for (int i = 0; i < MaxPositionsPerPath; i++)
+		{
+			//SerialPrintNewChar("a3\r\n",&huart1);
+			
+			GetValidData = 0;
+			while(GetValidData == 0);
+			
+			//SerialPrintNewChar("a4:",&huart1);
+			//SerialPrintNum(i,&huart1);
+			//SerialPrintNewChar("\r\n",&huart1);
+			
+			if(path.key_points[i].X == 1000)
+			{
+				return 0;
+			}
+			
+			//SerialPrintNewChar("a5\r\n",&huart1);
+			
+			aimp = path.key_points[i];
+			
+			//SerialPrintNewChar("a5_1\r\n",&huart1);
+			
+			CodeAimP(aimp);
+			
+			/*SerialPrintNewChar("myp:\r\n",&huart1);
+			SerialPrintPoint(myp,&huart1);
+			SerialPrintNewChar("aimp:\r\n",&huart1);
+			SerialPrintPoint(aimp,&huart1);
+			
+			SerialPrintNewChar("dis:",&huart1);
+			int dis = calculateDistance(myp,aimp);
+			SerialPrintNum(dis,&huart1);
+			SerialPrintNewChar("\r\n",&huart1);
+			SerialPrintNum(calculateDistance(myp,aimp),&huart1);*/
+			//SerialPrintNum(22,&huart1);
+			
+			while(calculateDistance(myp,aimp) > 8)
+			{
+				//SerialPrintNewChar("a6\r\n",&huart1);
+				
+				GetValidData = 0;
+				while(GetValidData == 0);
+				
+				//SerialPrintNewChar("a7\r\n",&huart1);
+				
+				DecodeCarBInfo();
+				myp = getCarB_pos();
+				
+				CodeMyP(myp);
+				
+				//SerialPrintNewChar("a8\r\n",&huart1);
+				
+				HAL_UART_Transmit(&huart1, messageTransimit, 10, 0xFFFF);
+				
+				//char output[50];
+				//sprintf(output,"{A%d:%d:%d:%d:%d:%d}$",myp.X,myp.Y,aimp.X,aimp.Y,0,0);
+				//SerialPrintNewChar(output,&huart1);
+			}
+		}	
+  }
+  /* USER CODE END 3 */
+
+}
