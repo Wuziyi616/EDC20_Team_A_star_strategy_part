@@ -14,14 +14,20 @@ The detailed contents about the files is as follows:
 Path search may be the most important issue in this competition, since the map is very complex and the rules are very strict.  
 ![Failed to load the image](https://github.com/Wuziyi616/EDC20_Team_A_star_strategy_part/blob/master/map.jpg)
 After discussing with the teammate who takes in charge of movement, I decide to divide the map into several levels of units, and the path I give will be a sequence of points (coordinates).  
+
 Concretely, I assign 40 Positions, 26 Edges, 12 Sections and 4 InterSections.  
 - The struct Position is some key points in the map. Coordinate is measured from the CAD file.
 - The struct Edge contains two Positions: start_pos and end_pos. And it also has an in_Edge bool function and length.
 - The struct Section contains an array of Edges and two InterSections: start_is and end_is.
-- The struct InterSection contains an in_InterSection function.  
+- The struct InterSection contains an in_InterSection function.
+
 In map initialization, I pre-calculate some nearest paths between all the InterSections. Therefore, when I want to get the nearest path between two positions, I just find out the nearest InterSections of each and use the pre-calculated paths as the backbone of the path. If the backbone is determined, then the only thing I need to do is adding some transitional positions before and after the backbone.  
 The kernel functions in Core.h/c are get_nearest_path and Search_Passenger. The first one is implemented as I've mentioned above. In the second function, I loop through all the existing passengers and compare their (score / (path_to_passenger.length + start_to_end.length)), which I call distance-average point. Then I just return the max point passenger to pick up.  
 Other functions include avoid_circle, cross_dash, etc, which are used for path optimization.  
+
+## Structure of Decision Making
+The entire structure of strategy taking is also very significant. Since the structure is done by Urkax rather than me, here I'll just draw a rough outline of it. Every time a message is received from the host computer, we'll decode it and judge whether the passenger state has changed. If not, then go on following the current path planned by Core.h/c. Otherwise, if there's already a passenger on our car, we'll calculate the nearest path from current position to the destination of the passenger. If not, then the function Search_Passenger will be called to determine the next passenger to pick up.  
+Other part including avoid enemy car or so can also be seen in the code.  
 
 ## Author
 Ziyi Wu  
