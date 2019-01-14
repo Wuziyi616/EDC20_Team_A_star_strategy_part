@@ -2,7 +2,7 @@
   
 ![Failed to load the image](https://github.com/Wuziyi616/EDC20_Team_A_star_strategy_part/blob/master/group_photo.jpg)
   
-This is the strategy board source code for the EDC20, THU championship team A_star, mainly implemented by Ziyi Wu and Urkax. See the movement board code (and also the introduction to our team and the match) in [stm32-auto_navigation_car](https://github.com/ChenDRAG/stm32-auto_navigation_car)  
+This is the strategy board source code for the EDC20, THU championship team A_star, mainly implemented by Ziyi Wu and Urkax. See the movement board code (and also the introduction to our team and the match) in [stm32-auto_navigation_car](https://github.com/ChenDRAG/stm32-auto_navigation_car).  
   
 This part includes receiving the information from the host computer, making decisions about path-planning, communicating between two boards and also wiFi-control bluetooth output, etc.  
 
